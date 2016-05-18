@@ -9,6 +9,8 @@ The cleaning of IRI Data Set as part of DSE220 final project
 - brew install --upgrade openssl  
 - brew unlink openssl && brew link openssl --force  
 - %load_ext sql  
+
+# Example:
 - %%sql postgresql:http://sharknado-dse.ceg3hdkdq8l0.us-east-1.rds.amazonaws.com/  
 - select * from character  
 - where abbrev = 'ALICE'  
