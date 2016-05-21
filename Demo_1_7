@@ -1,0 +1,145 @@
+
+-- punting on this dataset for now b/c the columns change in later years...
+--mqh001@ubuntu:/media/mqh001/Data/DSE220_Project_Iris_dataset/IRITest/demos_trips_external_1_11_may13$ ls *demo*.csv *demo*.CSV
+--ads demo1.csv  ads demo3.csv  ads demo5.csv  ads demo7.csv  ads demos10.CSV  ads demos9.CSV
+--ads demo2.csv  ads demo4.csv  ads demo6.CSV  ads demo8.CSV  ads demos11.CSV
+
+--Format1: demos 1 to 7
+--Format2: demo 8 to 11
+--Make format2 likes format1, please note upper and lower cases on .csv and .CSV
+
+LOAD CSV  
+      FROM '/media/mqh001/Data/DSE220_Project_Iris_dataset/IRITest/demos_trips_external_1_11_may13/ads demo1.CSV'
+     	('Panelist ID', 
+	'Panelist Type', 
+	'Combined Pre-Tax Income of HH',
+	'Family Size', 
+	'HH_RACE', 
+	'Type of Residential Possession',
+	'COUNTY', 
+	'HH_AGE', 
+	'HH_EDU', 
+	'HH_OCC',
+	'Age Group Applied to Male HH', 
+	'Education Level Reached by Male HH',
+	'Occupation Code of Male HH', 
+	'Male Working Hour Code', 'MALE_SMOKE',
+	'Age Group Applied to Female HH',
+	'Education Level Reached by Female HH',
+	'Occupation Code of Female HH', 
+	'Female Working Hour Code',
+	'FEM_SMOKE', 
+	'Number of Dogs', 
+	'Number of Cats',
+	'Children Group Code', 
+	'Marital Status', 
+	'Language',
+	'Number of TVs Used by HH', 
+	'Number of TVs Hooked to Cable', 
+	'Year',
+	'HISP_FLAG', 
+	'HISP_CAT', 
+	'HH Head Race (RACE2)',
+	'HH Head Race (RACE3)', 
+	'Microwave Owned by HH', 
+	'ZIPCODE',
+	'FIPSCODE', 
+	'market based upon zipcode',
+	'IRI Geography Number',
+	'EXT_FACT')  
+      
+     INTO postgresql:///dse220?panel_demos 
+	('Panelist ID',
+	 'Panelist Type',
+	 'Combined Pre-Tax Income of HH',
+	 'Family Size',
+	 'Type of Residential Possession',
+	 'COUNTY',
+	 'Age Group Applied to Male HH',
+	 'Education Level Reached by Male HH',
+	 'Occupation Code of Male HH',
+	 'Male Working Hour Code',
+	 'MALE_SMOKE',
+	 'Age Group Applied to Female HH',
+	 'Education Level Reached by Female HH',
+	 'Occupation Code of Female HH',
+	 'Female Working Hour Code',
+	 'FEM_SMOKE',
+	 'Number of Dogs',
+	 'Number of Cats',
+	 'Children Group Code',
+	 'Marital Status',
+	 'HISP_CAT',
+	 'ZIPCODE',
+	 'FIPSCODE',
+	 'market based upon zipcode',
+	 'IRI Geography Number',
+	 'EXT_FACT',
+	 'HH_RACE',
+	 'HH_AGE',
+	 'HH_EDU',
+	 'HH_OCC',
+	 'Language',
+	 'Number of TVs Used by HH',
+	 'Number of TVs Hooked to Cable',
+	 'Year',
+	 'HISP_FLAG',
+	 'HH Head Race (RACE2)',
+	 'HH Head Race (RACE3)',
+	 'Microwave Owned by HH')  
+
+     WITH truncate,  
+          skip header = 0,  
+          fields optionally enclosed by '"',  
+          fields terminated by ','  
+
+      SET client_encoding to 'latin1',  
+          work_mem to '12MB',  
+          standard_conforming_strings to 'on'  
+
+   BEFORE LOAD DO  
+    $$ drop table if exists panel_demos; $$,  
+    $$ create table panel_demos (  
+	 'Panelist ID' integer,
+	 'Panelist Type' integer,
+	 'Combined Pre-Tax Income of HH' integer,
+	 'Family Size' integer,
+	 'Type of Residential Possession' integer,
+	 'COUNTY' integer,
+	 'Age Group Applied to Male HH' integer,
+	 'Education Level Reached by Male HH' integer,
+	 'Occupation Code of Male HH' integer,
+	 'Male Working Hour Code' integer,
+	 'MALE_SMOKE' integer,
+	 'Age Group Applied to Female HH' integer,
+	 'Education Level Reached by Female HH' integer,
+	 'Occupation Code of Female HH' integer,
+	 'Female Working Hour Code' integer,
+	 'FEM_SMOKE' integer,
+	 'Number of Dogs' integer,
+	 'Number of Cats' integer,
+	 'Children Group Code' integer,
+	 'Marital Status' integer,
+	 'HISP_CAT' integer,
+	 'ZIPCODE' integer,
+	 'FIPSCODE' integer,
+	 'market based upon zipcode' integer,
+	 'IRI Geography Number' integer,
+	 'EXT_FACT' integer,
+	 'HH_RACE' integer,
+	 'HH_AGE' integer,
+	 'HH_EDU' integer,
+	 'HH_OCC' integer,
+	 'Language' integer,
+	 'Number of TVs Used by HH' integer,
+	 'Number of TVs Hooked to Cable' integer,
+	 'Year' integer,
+	 'HISP_FLAG' integer,
+	 'HH Head Race (RACE2)' integer,
+	 'HH Head Race (RACE3)' integer,
+	 'Microwave Owned by HH' integer
+       );  
+  $$; 
+
+
+
